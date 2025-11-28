@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Booking Confirmed — BookMyShowcase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header small">
+    <div class="brand">
+      <img src="logo.png" alt="BookMyShowcase logo" class="logo small">
+      <div class="brand-text">
+        <h1>BookMyShowcase</h1>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="card confirm-card">
+      <h2>🎉 Booking Confirmed</h2>
+      <p class="lead">Thanks for booking — here's your summary:</p>
+
+      <ul class="summary">
+        <li><strong>Name:</strong> <span id="r_name"></span></li>
+        <li><strong>Event:</strong> <span id="r_event"></span></li>
+        <li><strong>Tickets:</strong> <span id="r_tickets"></span></li>
+        <li><strong>Total Paid:</strong> ₹<span id="r_total"></span></li>
+      </ul>
+
+      <div class="actions">
+        <a href="index.html" class="btn outline">Book another</a>
+        <button id="downloadTicket" class="btn">Download Ticket</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>© BookMyShowcase</small>
+  </footer>
+
+  <script>
+    // read query params and populate
+    const params = Object.fromEntries(new URLSearchParams(window.location.search).entries());
+    document.getElementById('r_name').textContent = params.name || '';
+    document.getElementById('r_event').textContent = params.event || '';
+    document.getElementById('r_tickets').textContent = params.tickets || '';
+    document.getElementById('r_total').textContent = params.total || '';
+
+    // simple client-side "ticket" download (png of text) using canvas
+    document.getElementById('downloadTicket').addEventListener('click', () => {
+      const c = document.createElement('canvas');
+      c.width = 800; c.height = 420;
+      const ctx = c.getContext('2d');
+
+      // background
+      ctx.fillStyle = '#fff9f2';
+      ctx.fillRect(0,0,c.width,c.height);
+
+      // logo (draw small circle + play)
+      ctx.fillStyle = '#ff5b5b';
+      ctx.beginPath();
+      ctx.arc(80,80,48,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle = '#ffd24d';
+      ctx.fillRect(40,140,160,70);
+      ctx.fillStyle = '#ff5b5b';
+      ctx.beginPath();
+      ctx.moveTo(90,175); ctx.lineTo(130,195); ctx.lineTo(90,215); ctx.closePath(); ctx.fill();
+
+      // text
+      ctx.fillStyle = '#0b2340';
+      ctx.font = '28px Poppins, sans-serif';
+      ctx.fillText('BookMyShowcase — Ticket', 220, 80);
+      ctx.font = '20px sans-serif';
+      ctx.fillText('Name: ' + (params.name || ''), 220, 140);
+      ctx.fillText('Event: ' + (params.event || ''), 220, 180);
+      ctx.fillText('Tickets: ' + (params.tickets || ''), 220, 220);
+      ctx.fillText('Total Paid: ₹' + (params.total || ''), 220, 260);
+
+      const link = document.createElement('a');
+      link.download = 'BookMyShowcase-ticket.png';
+      link.href = c.toDataURL('image/png');
+      link.click();
+    });
+  </script>
+</body>
+</html>
