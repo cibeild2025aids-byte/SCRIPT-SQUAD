@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BookMyShowcase — Book Tickets</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <img src="logo.png" alt="BookMyShowcase logo" class="logo">
+      <div class="brand-text">
+        <h1>BookMyShowcase</h1>
+        <p class="tag">Feel the moment — book the emotion</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section class="card booking-card">
+      <h2>Book Your Tickets</h2>
+
+      <form id="bookingForm" class="form">
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" placeholder="Your name" required>
+
+        <label for="event">Event type</label>
+        <select id="event" name="event" required>
+          <option value="" disabled selected>Choose an event</option>
+          <option value="Music Concert" data-price="1200">Music Concert — ₹1200</option>
+          <option value="Stand-up Comedy" data-price="800">Stand-up Comedy — ₹800</option>
+          <option value="Tech Summit" data-price="1500">Tech Summit — ₹1500</option>
+          <option value="Drama Show" data-price="600">Drama Show — ₹600</option>
+        </select>
+
+        <label for="tickets">Number of tickets</label>
+        <input id="tickets" name="tickets" type="number" min="1" value="1" required>
+
+        <div class="total-row">
+          <div>
+            <small>Total</small>
+            <div id="total" class="total-amount">₹0</div>
+          </div>
+          <button type="submit" class="btn">Book Now</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <small>© BookMyShowcase — made with ❤️ to capture emotions</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
